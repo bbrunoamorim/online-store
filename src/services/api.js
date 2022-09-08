@@ -1,6 +1,6 @@
 export async function getCategories() {
   // Implemente aqui
-  // Nada
+  // SLa po
 }
 
 export async function getProductsFromCategoryAndQuery(/* categoryId, query */) {
