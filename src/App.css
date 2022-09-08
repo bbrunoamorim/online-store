@@ -40,3 +40,19 @@
     transform: rotate(360deg);
   }
 }
+
+header {
+  background-color: gray;
+  padding: 6px;
+  text-align: center;
+}
+
+.col-3 {
+  display: inline-block;
+  width: 25%;
+}
+
+.col-6 {
+  display: inline-block;
+  width: 50%;
+}
