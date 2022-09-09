@@ -4,11 +4,11 @@ import ProductCard from './ProductCard';
 
 export default class ProductsResult extends Component {
   render() {
-    const { searchedProducts } = this.props;
+    const { searchedProducts, startSearch } = this.props;
     return (
       <div>
         {
-          searchedProducts.length === 0 ? (
+          searchedProducts.length === 0 && startSearch ? (
             <p>Nenhum produto foi encontrado</p>
           ) : searchedProducts.map((product) => (
             <ProductCard
@@ -29,4 +29,5 @@ ProductsResult.propTypes = {
   searchedProducts: PropTypes.arrayOf(PropTypes.shape({
     title: PropTypes.string,
   })).isRequired,
+  startSearch: PropTypes.bool.isRequired,
 };
