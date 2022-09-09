@@ -26,6 +26,7 @@ export default class Header extends Component {
             <button
               type="button"
               data-testid="query-button"
+              id="query-button"
               onClick={ handleClick }
             >
               Pesquisar

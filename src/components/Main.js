@@ -9,10 +9,10 @@ export default class Main extends Component {
     this.apiCaller = this.apiCaller.bind(this);
 
     this.state = {
-      list: [],
       categories: [],
       queryInput: '',
       searchedProducts: [],
+      startSearch: false,
     };
   }
 
@@ -26,10 +26,17 @@ export default class Main extends Component {
     this.setState({ [name]: value });
   };
 
-  handleClick = async () => {
-    const { queryInput } = this.state;
-    const data = await getProductsFromCategoryAndQuery('', queryInput);
-    this.setState({ searchedProducts: data.results });
+  handleClick = async ({ target }) => {
+    this.setState({ startSearch: true });
+    if (target.id === 'query-button') {
+      const { queryInput } = this.state;
+      const data = await getProductsFromCategoryAndQuery('', queryInput);
+      this.setState({ searchedProducts: data.results });
+    } else {
+      const data = await getProductsFromCategoryAndQuery(target.id);
+      console.log(target.id);
+      this.setState({ searchedProducts: data.results });
+    }
   };
 
   apiCaller = () => {
@@ -37,9 +44,9 @@ export default class Main extends Component {
   };
 
   render() {
-    const { list, categories, searchedProducts, queryInput } = this.state;
+    const { categories, searchedProducts, queryInput, startSearch } = this.state;
     // console.log(categories);
-    const hasItemOnList = list.length > 0;
+    const hasItemOnList = searchedProducts.length > 0;
     return (
       <>
         <Header
@@ -61,10 +68,13 @@ export default class Main extends Component {
           data-testid="category"
           value={ categoria.name }
           type="button"
+          id={ categoria.id }
           key={ categoria.id }
+          onClick={ this.handleClick }
         />))}
         </div>
         <ProductsResult
+          startSearch={ startSearch }
           searchedProducts={ searchedProducts }
         />
       </>
