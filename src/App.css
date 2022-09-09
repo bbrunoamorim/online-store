@@ -40,3 +40,44 @@
     transform: rotate(360deg);
   }
 }
+
+header {
+  background-color: gray;
+  padding: 6px;
+  text-align: center;
+}
+
+.col-3 {
+  display: inline-block;
+  width: 25%;
+}
+
+.col-6 {
+  display: inline-block;
+  width: 50%;
+}
+
+.initial-message-container {
+  text-align: center;
+}
+
+.categories-container {
+  display: inline-block;
+  padding: 20px;
+  width: 20%;
+}
+
+.categories-container > input {
+  display: block;
+  margin: 6px 0;
+  width: 100%;
+}
+
+.products-result-container {
+  display: inline-block;
+  width: 80%;
+}
+
+.main-content {
+  display: flex;
+}
