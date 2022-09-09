@@ -6,7 +6,7 @@ export default class ProductsResult extends Component {
   render() {
     const { searchedProducts, startSearch } = this.props;
     return (
-      <div>
+      <div className="products-result-container">
         {
           searchedProducts.length === 0 && startSearch ? (
             <p>Nenhum produto foi encontrado</p>
