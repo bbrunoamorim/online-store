@@ -5,24 +5,23 @@ import { getCategories } from '../services/api';
 export default class Main extends Component {
   constructor(props) {
     super(props);
-    this.ApiCaller = this.ApiCaller.bind(this);
+    this.apiCaller = this.apiCaller.bind(this);
 
     this.state = {
       list: [],
-      categories: '',
+      categories: [],
     };
   }
 
   componentDidMount() {
-    this.ApiCaller();
+    this.apiCaller();
   }
 
-  ApiCaller = () => {
+  apiCaller = () => {
     getCategories().then((data) => this.setState({ categories: data }));
   };
 
   render() {
-    this.ApiCaller();
     const { list, categories } = this.state;
     console.log(categories);
     const hasItemOnList = list.length > 0;
@@ -38,7 +37,7 @@ export default class Main extends Component {
           )}
         </div>
         <div>
-          { categories !== ''
+          { categories !== []
         && categories.map((categoria) => (<input
           data-testid="category"
           value={ categoria.name }
