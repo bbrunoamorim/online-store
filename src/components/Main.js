@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Header from './Header';
-import { getCategories } from '../services/api';
+import { getProductsFromCategoryAndQuery, getCategories } from '../services/api';
+import ProductsResult from './ProductsResult';
 
 export default class Main extends Component {
   constructor(props) {
@@ -10,6 +11,8 @@ export default class Main extends Component {
     this.state = {
       list: [],
       categories: [],
+      queryInput: '',
+      searchedProducts: [],
     };
   }
 
@@ -17,17 +20,33 @@ export default class Main extends Component {
     this.apiCaller();
   }
 
+  handleChange = ({ target }) => {
+    const { name } = target;
+    const { value } = target;
+    this.setState({ [name]: value });
+  };
+
+  handleClick = async () => {
+    const { queryInput } = this.state;
+    const data = await getProductsFromCategoryAndQuery('', queryInput);
+    this.setState({ searchedProducts: data.results });
+  };
+
   apiCaller = () => {
     getCategories().then((data) => this.setState({ categories: data }));
   };
 
   render() {
-    const { list, categories } = this.state;
-    console.log(categories);
+    const { list, categories, searchedProducts, queryInput } = this.state;
+    // console.log(categories);
     const hasItemOnList = list.length > 0;
     return (
       <>
-        <Header />
+        <Header
+          handleChange={ this.handleChange }
+          handleClick={ this.handleClick }
+          queryInput={ queryInput }
+        />
         <div>
           { !hasItemOnList
           && (
@@ -45,6 +64,9 @@ export default class Main extends Component {
           key={ categoria.id }
         />))}
         </div>
+        <ProductsResult
+          searchedProducts={ searchedProducts }
+        />
       </>
     );
   }
