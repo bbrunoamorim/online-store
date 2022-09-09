@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 
 export default class header extends Component {
   render() {
@@ -23,7 +24,12 @@ export default class header extends Component {
           </form>
         </div>
         <div className="col-3">
-          <p>Carrinho</p>
+          <Link
+            to="/cart"
+            data-testid="shopping-cart-button"
+          >
+            Carrinho
+          </Link>
         </div>
       </header>
     );
