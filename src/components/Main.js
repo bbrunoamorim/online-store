@@ -54,7 +54,7 @@ export default class Main extends Component {
           handleClick={ this.handleClick }
           queryInput={ queryInput }
         />
-        <div>
+        <div className="initial-message-container">
           { !hasItemOnList
           && (
             <p data-testid="home-initial-message">
@@ -62,8 +62,10 @@ export default class Main extends Component {
             </p>
           )}
         </div>
-        <div>
-          { categories !== []
+        <div className="main-content">
+
+          <div className="categories-container">
+            { categories !== []
         && categories.map((categoria) => (<input
           data-testid="category"
           value={ categoria.name }
@@ -72,11 +74,12 @@ export default class Main extends Component {
           key={ categoria.id }
           onClick={ this.handleClick }
         />))}
+          </div>
+          <ProductsResult
+            startSearch={ startSearch }
+            searchedProducts={ searchedProducts }
+          />
         </div>
-        <ProductsResult
-          startSearch={ startSearch }
-          searchedProducts={ searchedProducts }
-        />
       </>
     );
   }
