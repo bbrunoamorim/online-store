@@ -1,16 +1,7 @@
 import React, { Component } from 'react';
 
 export default class header extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      // value: '',
-    };
-  }
-
   render() {
-    // const { value } = this.state;
     return (
       <header>
         <div className="col-3">
@@ -24,7 +15,9 @@ export default class header extends Component {
                 type="text"
               />
             </label>
-            <button type="submit">
+            <button
+              type="submit"
+            >
               Pesquisar
             </button>
           </form>
