@@ -32,6 +32,7 @@ export default class Main extends Component {
       const { queryInput } = this.state;
       const data = await getProductsFromCategoryAndQuery('', queryInput);
       this.setState({ searchedProducts: data.results });
+      console.log(data.results);
     } else {
       const data = await getProductsFromCategoryAndQuery(target.id);
       console.log(target.id);
