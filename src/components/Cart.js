@@ -10,6 +10,12 @@ export default class Cart extends Component {
     };
   }
 
+  componentDidMount() {
+    const products = localStorage.getItem('cartItems');
+    const parsedProducts = JSON.parse(products);
+    this.setState({ list: parsedProducts });
+  }
+
   render() {
     const { list } = this.state;
     const hasItemOnList = list.length > 0;
@@ -22,9 +28,11 @@ export default class Cart extends Component {
           <p data-testid="shopping-cart-empty-message">Seu carrinho está vazio</p>
         ) : (
           <div>
-            <p>Por enquanto nada aqui</p>
+            {
+
+            }
           </div>
-        )}
+        ) }
       </div>
     );
   }
