@@ -16,6 +16,7 @@ export default class ProductsResult extends Component {
               productName={ product.title }
               productImage={ product.thumbnail }
               productPrice={ product.price }
+              productId={ product.id }
               dataTestId="product"
             />
           ))
