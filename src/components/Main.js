@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import Header from './Header';
 import { getProductsFromCategoryAndQuery, getCategories } from '../services/api';
 import ProductsResult from './ProductsResult';
@@ -46,7 +47,7 @@ export default class Main extends Component {
 
   render() {
     const { categories, searchedProducts, queryInput, startSearch } = this.state;
-    // console.log(categories);
+    const { addCartFunc } = this.props;
     const hasItemOnList = searchedProducts.length > 0;
     return (
       <>
@@ -77,6 +78,7 @@ export default class Main extends Component {
         />))}
           </div>
           <ProductsResult
+            addCartFunc={ addCartFunc }
             startSearch={ startSearch }
             searchedProducts={ searchedProducts }
           />
@@ -85,3 +87,7 @@ export default class Main extends Component {
     );
   }
 }
+
+Main.propTypes = {
+  addCartFunc: PropTypes.func.isRequired,
+};

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
 export default class Cart extends Component {
@@ -11,9 +12,8 @@ export default class Cart extends Component {
   }
 
   componentDidMount() {
-    const products = localStorage.getItem('cartItems');
-    const parsedProducts = JSON.parse(products);
-    this.setState({ list: parsedProducts });
+    const { cartItems } = this.props;
+    this.setState({ list: cartItems });
   }
 
   render() {
@@ -29,7 +29,13 @@ export default class Cart extends Component {
         ) : (
           <div>
             {
-
+              list.map((item) => (
+                <div key={ item.id }>
+                  <p data-testid="shopping-cart-product-name">{item.name}</p>
+                  <p>{item.price}</p>
+                  <p data-testid="shopping-cart-product-quantity">{item.quantity}</p>
+                </div>
+              ))
             }
           </div>
         ) }
@@ -37,3 +43,12 @@ export default class Cart extends Component {
     );
   }
 }
+
+Cart.propTypes = {
+  cartItems: PropTypes.arrayOf(PropTypes.shape({
+    name: PropTypes.string,
+    image: PropTypes.string,
+    price: PropTypes.number,
+    id: PropTypes.string,
+  })).isRequired,
+};

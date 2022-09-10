@@ -31,7 +31,6 @@ export default class Item extends Component {
   render() {
     const { data, attributes } = this.state;
     const { title, price, thumbnail } = data;
-    console.log(attributes);
     return (
       <div className="info-item-container">
         <p data-testid="product-detail-name">{title}</p>
