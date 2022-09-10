@@ -4,7 +4,7 @@ import ProductCard from './ProductCard';
 
 export default class ProductsResult extends Component {
   render() {
-    const { searchedProducts, startSearch } = this.props;
+    const { searchedProducts, startSearch, addCartFunc } = this.props;
     return (
       <div className="products-result-container">
         {
@@ -16,7 +16,9 @@ export default class ProductsResult extends Component {
               productName={ product.title }
               productImage={ product.thumbnail }
               productPrice={ product.price }
+              productId={ product.id }
               dataTestId="product"
+              addCartFunc={ addCartFunc }
             />
           ))
         }
@@ -30,4 +32,5 @@ ProductsResult.propTypes = {
     title: PropTypes.string,
   })).isRequired,
   startSearch: PropTypes.bool.isRequired,
+  addCartFunc: PropTypes.func.isRequired,
 };

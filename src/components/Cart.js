@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
 export default class Cart extends Component {
@@ -8,6 +9,11 @@ export default class Cart extends Component {
     this.state = {
       list: [],
     };
+  }
+
+  componentDidMount() {
+    const { cartItems } = this.props;
+    this.setState({ list: cartItems });
   }
 
   render() {
@@ -22,10 +28,27 @@ export default class Cart extends Component {
           <p data-testid="shopping-cart-empty-message">Seu carrinho está vazio</p>
         ) : (
           <div>
-            <p>Por enquanto nada aqui</p>
+            {
+              list.map((item) => (
+                <div key={ item.id }>
+                  <p data-testid="shopping-cart-product-name">{item.name}</p>
+                  <p>{item.price}</p>
+                  <p data-testid="shopping-cart-product-quantity">{item.quantity}</p>
+                </div>
+              ))
+            }
           </div>
-        )}
+        ) }
       </div>
     );
   }
 }
+
+Cart.propTypes = {
+  cartItems: PropTypes.arrayOf(PropTypes.shape({
+    name: PropTypes.string,
+    image: PropTypes.string,
+    price: PropTypes.number,
+    id: PropTypes.string,
+  })).isRequired,
+};
