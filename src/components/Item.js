@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { getProductById } from '../services/api';
+import EvaluationForm from './EvaluationForm';
 
 export default class Item extends Component {
   constructor(props) {
@@ -32,22 +33,25 @@ export default class Item extends Component {
     const { data, attributes } = this.state;
     const { title, price, thumbnail } = data;
     return (
-      <div className="info-item-container">
-        <p data-testid="product-detail-name">{title}</p>
-        <img data-testid="product-detail-image" src={ thumbnail } alt={ title } />
-        <p data-testid="product-detail-price">{price}</p>
-        <ol>
-          { attributes.map((each) => (
-            <li key={ each.id }>{`${each.name}: ${each.value_name}`}</li>
-          )) }
-        </ol>
-        <Link
-          to="/cart"
-          data-testid="shopping-cart-button"
-        >
-          Adicionar ao carrinho
-        </Link>
-      </div>
+      <>
+        <div className="info-item-container">
+          <p data-testid="product-detail-name">{ title }</p>
+          <img data-testid="product-detail-image" src={ thumbnail } alt={ title } />
+          <p data-testid="product-detail-price">{ price }</p>
+          <ol>
+            { attributes.map((each) => (
+              <li key={ each.id }>{ `${each.name}: ${each.value_name}` }</li>
+            )) }
+          </ol>
+          <Link
+            to="/cart"
+            data-testid="shopping-cart-button"
+          >
+            Adicionar ao carrinho
+          </Link>
+        </div>
+        <EvaluationForm />
+      </>
     );
   }
 }
