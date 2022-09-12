@@ -32,6 +32,7 @@ export default class Item extends Component {
   render() {
     const { data, attributes } = this.state;
     const { title, price, thumbnail } = data;
+    const { match: { params: { id } } } = this.props;
     return (
       <>
         <div className="info-item-container">
@@ -50,7 +51,7 @@ export default class Item extends Component {
             Adicionar ao carrinho
           </Link>
         </div>
-        <EvaluationForm />
+        <EvaluationForm productId={ id } />
       </>
     );
   }
