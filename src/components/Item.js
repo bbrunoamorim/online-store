@@ -33,7 +33,7 @@ export default class Item extends Component {
     const { addCartFunc } = this.props;
     const { data, attributes } = this.state;
     const { title, price, thumbnail, id } = data;
-    const { match: { params: { id } } } = this.props;
+    const { match: { params } } = this.props;
     const obj = {
       name: title,
       image: thumbnail,
@@ -66,7 +66,7 @@ export default class Item extends Component {
             Ver Carrinho
           </Link>
         </div>
-        <EvaluationForm productId={ id } />
+        <EvaluationForm productId={ params.id } />
       </>
     );
   }
