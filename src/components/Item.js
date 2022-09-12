@@ -33,6 +33,9 @@ export default class Item extends Component {
     const { title, price, thumbnail } = data;
     return (
       <div className="info-item-container">
+        <div className="cart-header">
+          <Link to="/">Voltar</Link>
+        </div>
         <p data-testid="product-detail-name">{title}</p>
         <img data-testid="product-detail-image" src={ thumbnail } alt={ title } />
         <p data-testid="product-detail-price">{price}</p>

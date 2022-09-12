@@ -6,18 +6,28 @@ export default class Cart extends Component {
   constructor(props) {
     super(props);
 
+    this.updateWithLocal = this.updateWithLocal.bind(this);
+
     this.state = {
       list: [],
     };
   }
 
   componentDidMount() {
-    const { cartItems } = this.props;
-    this.setState({ list: cartItems });
+    this.updateWithLocal();
+  }
+
+  updateWithLocal() {
+    const storageList = JSON.parse(localStorage.getItem('cartItems'));
+    this.setState({
+      list: storageList,
+    });
   }
 
   render() {
+    const { updateWithLocal } = this;
     const { list } = this.state;
+    const { changeQuantity, removeItem } = this.props;
     const hasItemOnList = list.length > 0;
     return (
       <div>
@@ -27,13 +37,54 @@ export default class Cart extends Component {
         { !hasItemOnList ? (
           <p data-testid="shopping-cart-empty-message">Seu carrinho está vazio</p>
         ) : (
-          <div>
+          <div className="cart-container">
             {
               list.map((item) => (
-                <div key={ item.id }>
-                  <p data-testid="shopping-cart-product-name">{item.name}</p>
-                  <p>{item.price}</p>
-                  <p data-testid="shopping-cart-product-quantity">{item.quantity}</p>
+                <div className="cart-item" key={ item.id }>
+                  <button
+                    type="button"
+                    data-testid="remove-product"
+                    className="item-remove"
+                    onClick={ () => {
+                      removeItem(item);
+                      updateWithLocal();
+                    } }
+                  >
+                    Remove
+                  </button>
+                  <p
+                    className="item-name"
+                    data-testid="shopping-cart-product-name"
+                  >
+                    {item.name}
+                  </p>
+                  <p className="item-price">{item.price}</p>
+                  <button
+                    type="button"
+                    data-testid="product-decrease-quantity"
+                    onClick={ () => {
+                      changeQuantity('minus', item.id);
+                      updateWithLocal();
+                    } }
+                  >
+                    -
+                  </button>
+                  <p
+                    className="item-quantity"
+                    data-testid="shopping-cart-product-quantity"
+                  >
+                    {item.quantity}
+                  </p>
+                  <button
+                    type="button"
+                    data-testid="product-increase-quantity"
+                    onClick={ () => {
+                      changeQuantity('plus', item.id);
+                      updateWithLocal();
+                    } }
+                  >
+                    +
+                  </button>
                 </div>
               ))
             }
@@ -45,10 +96,6 @@ export default class Cart extends Component {
 }
 
 Cart.propTypes = {
-  cartItems: PropTypes.arrayOf(PropTypes.shape({
-    name: PropTypes.string,
-    image: PropTypes.string,
-    price: PropTypes.number,
-    id: PropTypes.string,
-  })).isRequired,
+  changeQuantity: PropTypes.func.isRequired,
+  removeItem: PropTypes.func.isRequired,
 };
