@@ -28,7 +28,7 @@ export default class Cart extends Component {
     const { updateWithLocal } = this;
     const { list } = this.state;
     const { changeQuantity, removeItem } = this.props;
-    const hasItemOnList = list.length > 0;
+    const hasItemOnList = list;
     return (
       <div>
         <div className="cart-header">
