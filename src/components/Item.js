@@ -42,6 +42,9 @@ export default class Item extends Component {
     };
     return (
       <>
+        <div className="cart-header">
+          <Link to="/">Voltar</Link>
+        </div>
         <div className="info-item-container">
           <p data-testid="product-detail-name">{title}</p>
           <img data-testid="product-detail-image" src={ thumbnail } alt={ title } />
@@ -57,7 +60,6 @@ export default class Item extends Component {
             type="button"
           >
             Adicionar ao Carrinho
-
           </button>
           <Link
             to="/cart"

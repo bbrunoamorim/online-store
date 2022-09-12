@@ -10,10 +10,23 @@ export default class App extends Component {
     super(props);
 
     this.addCartFunc = this.addCartFunc.bind(this);
+    this.changeQuantity = this.changeQuantity.bind(this);
+    this.removeItem = this.removeItem.bind(this);
+    this.quantityItemIncrease = this.quantityItemIncrease.bind(this);
+    this.quantityItemDecrease = this.quantityItemDecrease.bind(this);
 
     this.state = {
       cartItems: [],
     };
+  }
+
+  componentDidMount() {
+    const storageList = JSON.parse(localStorage.getItem('cartItems'));
+    if (storageList) {
+      this.setState({
+        cartItems: storageList,
+      });
+    }
   }
 
   addCartFunc(receivedObj) {
@@ -23,7 +36,7 @@ export default class App extends Component {
       obj.quantity = 1;
       this.setState({
         cartItems: [obj],
-      });
+      }, this.updateLocalStorage([obj]));
     } else {
       const foundObj = cartItems.find((item) => item.id === receivedObj.id);
       if (foundObj) {
@@ -31,18 +44,63 @@ export default class App extends Component {
         foundObj.quantity += 1;
         this.setState({
           cartItems: [...filteredList, foundObj],
-        });
+        }, this.updateLocalStorage([...filteredList, foundObj]));
       } else {
         obj.quantity = 1;
-        this.setState((prevState) => ({
-          cartItems: [...prevState.cartItems, receivedObj],
-        }));
+        this.setState((prevState) => {
+          this.updateLocalStorage([...prevState.cartItems, receivedObj]);
+          return ({
+            cartItems: [...prevState.cartItems, receivedObj],
+          });
+        });
       }
     }
   }
 
+  updateLocalStorage(receivedList) {
+    localStorage.setItem('cartItems', JSON.stringify(receivedList));
+  }
+
+  quantityItemIncrease(item) {
+    const { cartItems } = this.state;
+    const filteredList = cartItems.filter((each) => each.id !== item.id);
+    item.quantity += 1;
+    this.setState({
+      cartItems: [...filteredList, item],
+    }, this.updateLocalStorage([...filteredList, item]));
+    // console.log('plus: ', item);
+  }
+
+  quantityItemDecrease(item) {
+    if (item.quantity !== 1) {
+      const { cartItems } = this.state;
+      const filteredList = cartItems.filter((each) => each.id !== item.id);
+      item.quantity -= 1;
+      this.setState({
+        cartItems: [...filteredList, item],
+      }, this.updateLocalStorage([...filteredList, item]));
+    }
+    // console.log('minus: ', item);
+  }
+
+  changeQuantity(type, id) {
+    const { cartItems } = this.state;
+    const foundItem = cartItems.find((item) => item.id === id);
+    if (type === 'plus') this.quantityItemIncrease(foundItem);
+    if (type === 'minus') this.quantityItemDecrease(foundItem);
+  }
+
+  removeItem(item) {
+    const { cartItems } = this.state;
+    const filteredList = cartItems.filter((each) => each.id !== item.id);
+    this.setState({
+      cartItems: [...filteredList],
+    }, this.updateLocalStorage([...filteredList]));
+    // console.log(filteredList);
+  }
+
   render() {
-    const { addCartFunc } = this;
+    const { addCartFunc, changeQuantity, removeItem } = this;
     const { cartItems } = this.state;
     return (
       <BrowserRouter>
@@ -51,7 +109,11 @@ export default class App extends Component {
             <Main addCartFunc={ addCartFunc } />
           </Route>
           <Route exact path="/cart">
-            <Cart cartItems={ cartItems } />
+            <Cart
+              cartItems={ cartItems }
+              changeQuantity={ changeQuantity }
+              removeItem={ removeItem }
+            />
           </Route>
           <Route
             exact
