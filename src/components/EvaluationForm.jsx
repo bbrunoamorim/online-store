@@ -8,7 +8,6 @@ export default class EvaluationForm extends Component {
     rating: '',
     text: '',
     formValidation: false,
-    haveTypped: false,
     evaluations: [],
   };
 
@@ -32,7 +31,7 @@ export default class EvaluationForm extends Component {
     const emailCheck = email.includes('@');
     if (emailCheck && email.length > 0
       && Number(rating) > 0 && Number(rating) < MAX_RATING) {
-      this.setState({ formValidation: true, haveTypped: true });
+      this.setState({ formValidation: true });
       const obj = {
         email,
         rating,
@@ -50,7 +49,6 @@ export default class EvaluationForm extends Component {
     } else {
       this.setState({
         formValidation: false,
-        haveTypped: false,
       });
     }
   };
@@ -74,7 +72,7 @@ export default class EvaluationForm extends Component {
   }
 
   render() {
-    const { email, text, evaluations, formValidation, haveTypped } = this.state;
+    const { email, text, evaluations, formValidation } = this.state;
 
     return (
       <>
@@ -106,8 +104,7 @@ export default class EvaluationForm extends Component {
           </button>
         </form>
         {
-          formValidation ? null : (
-            haveTypped && <p data-testid="error-msg">Campos inválidos</p>)
+          !formValidation && <p data-testid="error-msg">Campos inválidos</p>
         }
         {
           evaluations.map((evaluation, index) => (
