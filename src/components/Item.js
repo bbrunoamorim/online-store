@@ -30,25 +30,40 @@ export default class Item extends Component {
   }
 
   render() {
+    const { addCartFunc } = this.props;
     const { data, attributes } = this.state;
-    const { title, price, thumbnail } = data;
+    const { title, price, thumbnail, id } = data;
     const { match: { params: { id } } } = this.props;
+    const obj = {
+      name: title,
+      image: thumbnail,
+      price,
+      id,
+    };
     return (
       <>
         <div className="info-item-container">
-          <p data-testid="product-detail-name">{ title }</p>
+          <p data-testid="product-detail-name">{title}</p>
           <img data-testid="product-detail-image" src={ thumbnail } alt={ title } />
-          <p data-testid="product-detail-price">{ price }</p>
+          <p data-testid="product-detail-price">{price}</p>
           <ol>
             { attributes.map((each) => (
-              <li key={ each.id }>{ `${each.name}: ${each.value_name}` }</li>
+              <li key={ each.id }>{`${each.name}: ${each.value_name}`}</li>
             )) }
           </ol>
+          <button
+            data-testid="product-detail-add-to-cart"
+            onClick={ () => addCartFunc(obj) }
+            type="button"
+          >
+            Adicionar ao Carrinho
+
+          </button>
           <Link
             to="/cart"
             data-testid="shopping-cart-button"
           >
-            Adicionar ao carrinho
+            Ver Carrinho
           </Link>
         </div>
         <EvaluationForm productId={ id } />
@@ -58,6 +73,7 @@ export default class Item extends Component {
 }
 
 Item.propTypes = {
+  addCartFunc: PropTypes.func.isRequired,
   match: PropTypes.shape({
     params: PropTypes.shape({
       id: PropTypes.string,
