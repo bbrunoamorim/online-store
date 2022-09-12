@@ -30,7 +30,7 @@ export default class EvaluationForm extends Component {
     const MAX_RATING = 5;
     const emailCheck = email.includes('@');
     if (emailCheck && email.length > 0
-      && Number(rating) > 0 && Number(rating) < MAX_RATING) {
+      && Number(rating) > 0 && Number(rating) <= MAX_RATING) {
       this.setState({ formValidation: true });
       const obj = {
         email,
