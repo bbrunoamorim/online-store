@@ -9,6 +9,7 @@ export default class EvaluationForm extends Component {
     text: '',
     formValidation: false,
     evaluations: [],
+    submitted: false,
   };
 
   componentDidMount() {
@@ -21,7 +22,8 @@ export default class EvaluationForm extends Component {
 
   handleChange = ({ target }) => {
     const { name, value } = target;
-    this.setState({ [name]: value });
+    this.setState({ [name]: value, submitted: false });
+    // console.log(target);
   };
 
   handleFormSubmit = () => {
@@ -29,6 +31,8 @@ export default class EvaluationForm extends Component {
     const { productId } = this.props;
     const MAX_RATING = 5;
     const emailCheck = email.includes('@');
+    this.setState({ submitted: true });
+    // console.log(target);
     if (emailCheck && email.length > 0
       && Number(rating) > 0 && Number(rating) <= MAX_RATING) {
       this.setState({ formValidation: true });
@@ -59,6 +63,7 @@ export default class EvaluationForm extends Component {
     for (let rating = 1; rating < LIMIT; rating += 1) {
       radios.push(
         <input
+          key={ rating }
           type="radio"
           data-testid={ `${rating}-rating` }
           name="rating"
@@ -72,7 +77,7 @@ export default class EvaluationForm extends Component {
   }
 
   render() {
-    const { email, text, evaluations, formValidation } = this.state;
+    const { email, text, evaluations, formValidation, submitted } = this.state;
 
     return (
       <>
@@ -104,7 +109,7 @@ export default class EvaluationForm extends Component {
           </button>
         </form>
         {
-          !formValidation && <p data-testid="error-msg">Campos inválidos</p>
+          submitted && !formValidation && <p data-testid="error-msg">Campos inválidos</p>
         }
         {
           evaluations.map((evaluation, index) => (
