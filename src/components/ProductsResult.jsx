@@ -20,6 +20,7 @@ export default class ProductsResult extends Component {
               productId={ product.id }
               dataTestId="product"
               addCartFunc={ addCartFunc }
+              productShip={ product.shipping.free_shipping }
             />
           ))
         }
