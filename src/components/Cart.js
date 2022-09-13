@@ -33,6 +33,9 @@ export default class Cart extends Component {
       <div>
         <div className="cart-header">
           <Link to="/">Voltar</Link>
+          <Link to="/checkout" data-testid="checkout-products">
+            Ir para o checkout
+          </Link>
         </div>
         { !hasItemOnList ? (
           <p data-testid="shopping-cart-empty-message">Seu carrinho está vazio</p>
