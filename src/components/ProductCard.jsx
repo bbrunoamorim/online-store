@@ -12,11 +12,13 @@ export default class ProductCard extends Component {
       productId,
       addCartFunc,
       productShip,
+      availableQuantity,
     } = this.props;
     const obj = {
       name: productName,
       image: productImage,
       price: productPrice,
+      availableQuantity,
       id: productId,
       shipping: productShip,
     };
@@ -53,4 +55,5 @@ ProductCard.propTypes = {
   productId: PropTypes.string.isRequired,
   addCartFunc: PropTypes.func.isRequired,
   productShip: PropTypes.bool.isRequired,
+  availableQuantity: PropTypes.number.isRequired,
 };
