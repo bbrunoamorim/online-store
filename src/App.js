@@ -4,6 +4,7 @@ import './App.css';
 import Main from './components/Main';
 import Cart from './components/Cart';
 import Item from './components/Item';
+import Checkout from './components/Checkout';
 
 export default class App extends Component {
   constructor(props) {
@@ -120,6 +121,9 @@ export default class App extends Component {
             path="/item/:id"
             render={ (props) => <Item { ...props } addCartFunc={ addCartFunc } /> }
           />
+          <Route path="/checkout">
+            <Checkout />
+          </Route>
           <Route
             path="*"
             render={ () => (
