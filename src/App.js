@@ -15,9 +15,11 @@ export default class App extends Component {
     this.removeItem = this.removeItem.bind(this);
     this.quantityItemIncrease = this.quantityItemIncrease.bind(this);
     this.quantityItemDecrease = this.quantityItemDecrease.bind(this);
+    this.updateCartQuantity = this.updateCartQuantity.bind(this);
 
     this.state = {
       cartItems: [],
+      cartQuantity: 0,
     };
   }
 
@@ -26,7 +28,16 @@ export default class App extends Component {
     if (storageList) {
       this.setState({
         cartItems: storageList,
-      });
+      }, this.updateCartQuantity());
+    }
+  }
+
+  updateCartQuantity() {
+    const storageList = JSON.parse(localStorage.getItem('cartItems'));
+    if (storageList) {
+      const totalQuantity = storageList.map((item) => item.quantity)
+        .reduce((acc, curr) => acc + curr);
+      this.setState({ cartQuantity: totalQuantity });
     }
   }
 
@@ -60,6 +71,7 @@ export default class App extends Component {
 
   updateLocalStorage(receivedList) {
     localStorage.setItem('cartItems', JSON.stringify(receivedList));
+    this.updateCartQuantity();
   }
 
   quantityItemIncrease(item) {
@@ -102,12 +114,12 @@ export default class App extends Component {
 
   render() {
     const { addCartFunc, changeQuantity, removeItem } = this;
-    const { cartItems } = this.state;
+    const { cartItems, cartQuantity } = this.state;
     return (
       <BrowserRouter>
         <Switch>
           <Route exact path="/">
-            <Main addCartFunc={ addCartFunc } />
+            <Main addCartFunc={ addCartFunc } cartQuantity={ cartQuantity } />
           </Route>
           <Route exact path="/cart">
             <Cart
@@ -119,7 +131,11 @@ export default class App extends Component {
           <Route
             exact
             path="/item/:id"
-            render={ (props) => <Item { ...props } addCartFunc={ addCartFunc } /> }
+            render={ (props) => (<Item
+              { ...props }
+              addCartFunc={ addCartFunc }
+              cartQuantity={ cartQuantity }
+            />) }
           />
           <Route path="/checkout">
             <Checkout />
