@@ -30,7 +30,7 @@ export default class ProductCard extends Component {
             <img src={ productImage } alt={ productName } />
             <p>{ `R$ ${productPrice}` }</p>
             { productShip === true
-              ? <p data-testid="free-shipping">{`frete gratis:${productShip}`}</p> : null}
+              ? <p data-testid="free-shipping">Frete Gratis</p> : null}
           </div>
         </Link>
         <button
