@@ -13,6 +13,7 @@ export default class ProductsResult extends Component {
           ) : searchedProducts.map((product) => (
             <ProductCard
               key={ product.id }
+              availableQuantity={ product.available_quantity }
               productName={ product.title }
               productImage={ product.thumbnail }
               productPrice={ product.price }
