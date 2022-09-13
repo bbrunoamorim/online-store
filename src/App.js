@@ -53,6 +53,7 @@ export default class App extends Component {
       const foundObj = cartItems.find((item) => item.id === receivedObj.id);
       if (foundObj) {
         const filteredList = cartItems.filter((item) => item.id !== foundObj.id);
+        console.log(receivedObj);
         foundObj.quantity += 1;
         this.setState({
           cartItems: [...filteredList, foundObj],
@@ -76,12 +77,14 @@ export default class App extends Component {
 
   quantityItemIncrease(item) {
     const { cartItems } = this.state;
+    console.log(item);
     const filteredList = cartItems.filter((each) => each.id !== item.id);
-    item.quantity += 1;
+    if (item.quantity < item.availableQuantity) {
+      item.quantity += 1;
+    }
     this.setState({
       cartItems: [...filteredList, item],
     }, this.updateLocalStorage([...filteredList, item]));
-    // console.log('plus: ', item);
   }
 
   quantityItemDecrease(item) {
@@ -93,7 +96,6 @@ export default class App extends Component {
         cartItems: [...filteredList, item],
       }, this.updateLocalStorage([...filteredList, item]));
     }
-    // console.log('minus: ', item);
   }
 
   changeQuantity(type, id) {
@@ -109,7 +111,6 @@ export default class App extends Component {
     this.setState({
       cartItems: [...filteredList],
     }, this.updateLocalStorage([...filteredList]));
-    // console.log(filteredList);
   }
 
   render() {
