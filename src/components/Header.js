@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 export default class Header extends Component {
   render() {
-    const { queryInput, handleClick, handleChange } = this.props;
+    const { queryInput, handleClick, handleChange, cartQuantity } = this.props;
 
     return (
       <header>
@@ -39,6 +39,7 @@ export default class Header extends Component {
             data-testid="shopping-cart-button"
           >
             Carrinho
+            <span data-testid="shopping-cart-size">{ cartQuantity }</span>
           </Link>
         </div>
       </header>
@@ -50,4 +51,5 @@ Header.propTypes = {
   queryInput: PropTypes.string.isRequired,
   handleChange: PropTypes.func.isRequired,
   handleClick: PropTypes.func.isRequired,
+  cartQuantity: PropTypes.number.isRequired,
 };
