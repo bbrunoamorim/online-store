@@ -11,13 +11,18 @@ export default class ProductCard extends Component {
       dataTestId,
       productId,
       addCartFunc,
+      productShip,
+      availableQuantity,
     } = this.props;
     const obj = {
       name: productName,
       image: productImage,
       price: productPrice,
+      availableQuantity,
       id: productId,
+      shipping: productShip,
     };
+
     const linkItem = `/item/${productId}`;
     return (
       <div className="main-card-item" data-testid={ dataTestId }>
@@ -26,6 +31,8 @@ export default class ProductCard extends Component {
             <p>{ productName }</p>
             <img src={ productImage } alt={ productName } />
             <p>{ `R$ ${productPrice}` }</p>
+            { productShip === true
+              ? <p data-testid="free-shipping">Frete Gratis</p> : null}
           </div>
         </Link>
         <button
@@ -41,8 +48,12 @@ export default class ProductCard extends Component {
 }
 
 ProductCard.propTypes = {
-  productName: PropTypes.string,
-  productImage: PropTypes.string,
-  productPrice: PropTypes.string,
-  dataTestId: PropTypes.string,
-}.isRequired;
+  productName: PropTypes.string.isRequired,
+  productImage: PropTypes.string.isRequired,
+  productPrice: PropTypes.number.isRequired,
+  dataTestId: PropTypes.string.isRequired,
+  productId: PropTypes.string.isRequired,
+  addCartFunc: PropTypes.func.isRequired,
+  productShip: PropTypes.bool.isRequired,
+  availableQuantity: PropTypes.number.isRequired,
+};

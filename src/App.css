@@ -58,3 +58,53 @@ header {
   text-overflow: ellipsis;
   white-space: nowrap;
 }
+
+.cart-container {
+  border-top: 1px solid lightgray;
+  margin-top: 30px;
+}
+
+.cart-item {
+  align-items: center;
+  border-bottom: 1px solid lightgray;
+  display: flex;
+}
+
+.cart-item .item-price {
+  color: dimgray;
+  font-style: italic;
+  font-weight: 600;
+  margin: 0 10px;
+  margin-right: 20px;
+}
+
+.cart-item .item-quantity {
+  font-weight: 600;
+  margin: 0 10px;
+}
+
+.item-remove {
+  margin: 0 25px;
+}
+
+.cart-header {
+  display: flex;
+  justify-content: space-around;
+}
+
+.checkout-container table {
+  border: 1px solid lightgray;
+  border-radius: 8px;
+}
+
+.checkout-container table > tr {
+  border-top: 1px solid lightgray;
+}
+
+.checkout-container table td {
+  text-align: center;
+}
+
+.checkout-container form {
+  margin-top: 30px;
+}
