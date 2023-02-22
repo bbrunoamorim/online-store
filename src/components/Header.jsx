@@ -26,7 +26,7 @@ export default class Header extends Component {
                 value={ queryInput }
                 onChange={ handleChange }
                 placeholder="Digite um termo para pesquisa"
-                className="text-sm text-center p-1 rounded-lg shadow-md md:w-96"
+                className="text-sm text-center py-2 shadow-md md:w-96"
               />
             </label>
             <button
@@ -34,7 +34,7 @@ export default class Header extends Component {
               id="query-button"
               onClick={ handleClick }
             >
-              <AiOutlineSearch className="inline ml-2 text-2xl" />
+              <AiOutlineSearch className="inline ml-1 text-2xl" />
             </button>
           </form>
         </div>
@@ -42,9 +42,9 @@ export default class Header extends Component {
           <Link
             to="/cart"
           >
-            <AiOutlineShoppingCart className="inline text-3xl" />
+            <AiOutlineShoppingCart className="inline text-4xl" />
             <span
-              className="absolute top-4 right-5 text-sm"
+              className="text-sm"
             >
               { cartQuantity }
             </span>
