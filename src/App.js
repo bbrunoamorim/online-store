@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import './App.css';
+import './index.css';
 import Main from './components/Main';
 import Cart from './components/Cart';
 import Item from './components/Item';
@@ -53,7 +53,6 @@ export default class App extends Component {
       const foundObj = cartItems.find((item) => item.id === receivedObj.id);
       if (foundObj) {
         const filteredList = cartItems.filter((item) => item.id !== foundObj.id);
-        console.log(receivedObj);
         foundObj.quantity += 1;
         this.setState({
           cartItems: [...filteredList, foundObj],
