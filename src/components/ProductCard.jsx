@@ -45,7 +45,8 @@ export default class ProductCard extends Component {
         <button
           type="button"
           onClick={ () => addCartFunc(obj) }
-          className="text-sm hover:font-medium"
+          className="text-sm text-blue-500 font-medium
+          hover:text-blue-600 hover:font-semibold"
         >
           Adicionar ao carrinho
         </button>

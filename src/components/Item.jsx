@@ -61,7 +61,7 @@ export default class Item extends Component {
               attributes.map((each) => (
                 <li
                   key={ each.id }
-                  className="text-sm my-2"
+                  className="text-sm my-2 text-gray-600"
                 >
                   { `${each.name}: ${each.value_name}` }
                 </li>
@@ -71,7 +71,8 @@ export default class Item extends Component {
           <button
             onClick={ () => addCartFunc(obj) }
             type="button"
-            className="text-sm hover:font-medium my-4"
+            className="text-sm font-medium my-4 text-blue-500
+            hover:font-semibold hover:text-blue-600"
           >
             Adicionar ao Carrinho
           </button>
