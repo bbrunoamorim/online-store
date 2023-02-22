@@ -6,7 +6,7 @@ export default class ProductsResult extends Component {
   render() {
     const { searchedProducts, startSearch, addCartFunc } = this.props;
     return (
-      <div className="flex flex-wrap items-center justify-center">
+      <div className="flex flex-wrap items-center justify-center text-center">
         {
           searchedProducts.length === 0
             && startSearch

@@ -31,40 +31,52 @@ export default class Cart extends Component {
     const hasItemOnList = list;
     return (
       <div>
-        <div className="cart-header">
-          <Link to="/">Voltar</Link>
-          <Link to="/checkout" data-testid="checkout-products">
+        <div className="flex justify-between items-center py-4 px-8">
+          <Link
+            to="/"
+            className="mb-5 bg-gradient-to-br from-blue-500 via-purple-500 to-pink-300 p-1
+            rounded-md text-white font-medium hover:font-semibold hover:bg-blue-400
+            transition-colors duration-200 cursor-pointer w-1/4 text-center"
+          >
+            Voltar
+          </Link>
+          <h2 className="text-xl font-medium">Seu Carrinho</h2>
+          <Link
+            to="/checkout"
+            className="mb-5 bg-gradient-to-br from-blue-500 via-purple-500 to-pink-300 p-1
+            rounded-md text-white font-medium hover:font-semibold hover:bg-blue-400
+            transition-colors duration-200 cursor-pointer w-1/4 text-center"
+          >
             Ir para o checkout
           </Link>
         </div>
         { !hasItemOnList ? (
-          <p data-testid="shopping-cart-empty-message">Seu carrinho está vazio</p>
+          <p>Seu carrinho está vazio</p>
         ) : (
-          <div className="cart-container">
+          <div>
             {
               list.map((item) => (
-                <div className="cart-item" key={ item.id }>
+                <div
+                  key={ item.id }
+                  className="flex flex-wrap justify-evenly items-center outline outline-1
+                  px-2 rounded-md shadow-lg w-2/3 mx-auto my-7 h-24"
+                >
                   <button
                     type="button"
-                    data-testid="remove-product"
-                    className="item-remove"
                     onClick={ () => {
                       removeItem(item);
                       updateWithLocal();
                     } }
+                    className="text-sm hover:font-medium"
                   >
-                    Remove
+                    Remover
                   </button>
-                  <p
-                    className="item-name"
-                    data-testid="shopping-cart-product-name"
-                  >
-                    {item.name}
+                  <p className="truncate text-xs">
+                    { item.name }
                   </p>
-                  <p className="item-price">{item.price}</p>
+                  <p className="text-sm">{ `R$: ${item.price}` }</p>
                   <button
                     type="button"
-                    data-testid="product-decrease-quantity"
                     onClick={ () => {
                       changeQuantity('minus', item.id);
                       updateWithLocal();
@@ -72,15 +84,11 @@ export default class Cart extends Component {
                   >
                     -
                   </button>
-                  <p
-                    className="item-quantity"
-                    data-testid="shopping-cart-product-quantity"
-                  >
-                    {item.quantity}
+                  <p>
+                    { item.quantity }
                   </p>
                   <button
                     type="button"
-                    data-testid="product-increase-quantity"
                     onClick={ () => {
                       changeQuantity('plus', item.id);
                       updateWithLocal();
