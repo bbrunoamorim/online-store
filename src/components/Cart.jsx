@@ -40,7 +40,7 @@ export default class Cart extends Component {
           >
             Voltar
           </Link>
-          <h2 className="text-xl font-medium">Seu Carrinho</h2>
+          <h2 className="text-xl">Seu Carrinho</h2>
           <Link
             to="/checkout"
             className="mb-5 bg-gradient-to-br from-blue-500 via-purple-500 to-pink-300 p-1
@@ -58,43 +58,47 @@ export default class Cart extends Component {
               list.map((item) => (
                 <div
                   key={ item.id }
-                  className="flex flex-wrap justify-evenly items-center outline outline-1
-                  px-2 rounded-md shadow-lg w-2/3 mx-auto my-7 h-24"
+                  className="flex flex-wrap justify-between items-center outline outline-1
+                  px-4 rounded-md shadow-lg w-2/3 mx-auto my-7 h-24"
                 >
+                  <p className="truncate text-xs">
+                    { item.name }
+                  </p>
+                  <p className="text-sm">{ `R$: ${item.price}` }</p>
+                  <div className="flex">
+                    <button
+                      type="button"
+                      onClick={ () => {
+                        changeQuantity('plus', item.id);
+                        updateWithLocal();
+                      } }
+                      className="hover:font-semibold"
+                    >
+                      +
+                    </button>
+                    <p className="mx-3 font-medium">
+                      { item.quantity }
+                    </p>
+                    <button
+                      type="button"
+                      onClick={ () => {
+                        changeQuantity('minus', item.id);
+                        updateWithLocal();
+                      } }
+                      className="hover:font-semibold"
+                    >
+                      -
+                    </button>
+                  </div>
                   <button
                     type="button"
                     onClick={ () => {
                       removeItem(item);
                       updateWithLocal();
                     } }
-                    className="text-sm hover:font-medium"
+                    className="text-sm text-red-600 hover:font-medium"
                   >
                     Remover
-                  </button>
-                  <p className="truncate text-xs">
-                    { item.name }
-                  </p>
-                  <p className="text-sm">{ `R$: ${item.price}` }</p>
-                  <button
-                    type="button"
-                    onClick={ () => {
-                      changeQuantity('minus', item.id);
-                      updateWithLocal();
-                    } }
-                  >
-                    -
-                  </button>
-                  <p>
-                    { item.quantity }
-                  </p>
-                  <button
-                    type="button"
-                    onClick={ () => {
-                      changeQuantity('plus', item.id);
-                      updateWithLocal();
-                    } }
-                  >
-                    +
                   </button>
                 </div>
               ))
