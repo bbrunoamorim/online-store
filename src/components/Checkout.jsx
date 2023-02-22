@@ -45,6 +45,7 @@ export default class Checkout extends Component {
   }
 
   handleChange({ target }) {
+    this.setState({ enableShowError: false });
     const { name, value } = target;
     this.setState({ [name]: value }, () => {
       const {
@@ -52,13 +53,13 @@ export default class Checkout extends Component {
         email,
         cpf,
         phone,
-        cep,
         address,
         payment,
+        cep,
       } = this.state;
       const condition = fullname !== ''
-      && email !== ''
-      && cpf !== '' && phone !== '' && cep !== '' && address !== '' && payment !== '';
+        && email !== ''
+        && cpf !== '' && phone !== '' && cep !== '' && address !== '' && payment !== '';
       this.setState({ validForm: condition });
     });
   }
@@ -80,10 +81,10 @@ export default class Checkout extends Component {
     const { handleSubmit, handleChange } = this;
     const conditionShowError = !validForm && enableShowError;
     return (
-      <div className="checkout-container">
+      <div className="p-5 w-2/3 mx-auto">
+        <h1 className="text-center text-4xl mb-8">Checkout</h1>
         { redirect && <Redirect to="/" /> }
-        { conditionShowError && <p data-testid="error-msg">Campos inválidos</p> }
-        <table>
+        <table className="table-auto mx-auto text-sm text-center w-2/3">
           <thead>
             <tr>
               <th>Nome</th>
@@ -108,106 +109,119 @@ export default class Checkout extends Component {
             }
           </tbody>
         </table>
-        <form>
+        <form className="my-10 mx-auto flex-col">
+          <fieldset>
+            <input
+              type="text"
+              placeholder="Nome Completo"
+              name="fullname"
+              value={ fullname }
+              onChange={ handleChange }
+              required
+              className="w-full p-1 border border-1 rounded-md mb-2 border-blue-200"
+            />
+            <input
+              type="email"
+              placeholder="Email"
+              name="email"
+              value={ email }
+              onChange={ handleChange }
+              required
+              className="w-full p-1 border border-1 rounded-md mb-2 border-blue-200"
+            />
+          </fieldset>
           <input
-            data-testid="checkout-fullname"
-            type="text"
-            placeholder="Nome Completo"
-            name="fullname"
-            value={ fullname }
-            onChange={ handleChange }
-            required
-          />
-          <input
-            data-testid="checkout-email"
-            type="email"
-            placeholder="Email"
-            name="email"
-            value={ email }
-            onChange={ handleChange }
-            required
-          />
-          <input
-            data-testid="checkout-cpf"
             type="text"
             placeholder="CPF"
             name="cpf"
             value={ cpf }
             onChange={ handleChange }
             required
+            className="w-full p-1 border border-1 rounded-md mb-2 border-blue-200"
           />
           <input
-            data-testid="checkout-phone"
             type="text"
             placeholder="Telefone"
             name="phone"
             value={ phone }
             onChange={ handleChange }
             required
+            className="w-full p-1 border border-1 rounded-md mb-2 border-blue-200"
           />
           <input
-            data-testid="checkout-cep"
             type="text"
             placeholder="CEP"
             name="cep"
             value={ cep }
             onChange={ handleChange }
             required
+            className="w-full p-1 border border-1 rounded-md mb-2 border-blue-200"
           />
           <input
-            data-testid="checkout-address"
             type="text"
             placeholder="Endereço"
             name="address"
             value={ address }
             onChange={ handleChange }
             required
+            className="w-full p-1 border border-1 rounded-md mb-2 border-blue-200"
           />
-          <div>
+          <div className="flex justify-evenly my-6">
             <input
-              data-testid="ticket-payment"
               type="radio"
               value="Boleto"
               name="payment"
               onChange={ handleChange }
               required
+              className="accent-purple-600"
             />
-            {' Boleto '}
+            { ' Boleto ' }
             <input
               onChange={ handleChange }
-              data-testid="visa-payment"
               type="radio"
               value="Visa"
               name="payment"
               required
+              className="accent-purple-600"
             />
-            {' Visa '}
+            { ' Visa ' }
             <input
-              data-testid="master-payment"
               type="radio"
               value="Master"
               name="payment"
               onChange={ handleChange }
               required
+              className="accent-purple-600"
             />
-            {' MasterCard '}
+            { ' MasterCard ' }
             <input
               onChange={ handleChange }
-              data-testid="elo-payment"
               type="radio"
               value="Elo"
               name="payment"
               required
+              className="accent-purple-600"
             />
-            {' Elo '}
+            { ' Elo ' }
           </div>
           <input
             onClick={ handleSubmit }
             type="button"
             value="Submit"
-            data-testid="checkout-btn"
+            className="mb-2 bg-gradient-to-br from-blue-500 via-purple-500 to-pink-300
+            p-1 rounded-md text-white font-medium hover:font-semibold hover:bg-blue-400
+            transition-colors duration-200 cursor-pointer mx-auto w-1/2"
           />
         </form>
+        {
+          conditionShowError
+            ? (
+              <p className="text-red-500 font-semibold text-center animate-bounce">
+                Campos inválidos
+              </p>
+            )
+            : null
+        }
       </div>
     );
   }
