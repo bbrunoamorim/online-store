@@ -8,7 +8,6 @@ export default class ProductCard extends Component {
       productName,
       productImage,
       productPrice,
-      dataTestId,
       productId,
       addCartFunc,
       productShip,
@@ -25,20 +24,28 @@ export default class ProductCard extends Component {
 
     const linkItem = `/item/${productId}`;
     return (
-      <div className="main-card-item" data-testid={ dataTestId }>
-        <Link to={ linkItem } data-testid="product-detail-link">
+      <div
+        className="flex-col text-center px-4 mb-5 mx-3 shadow-lg rounded-lg
+        bg-white w-60 h-60 hover:shadow-2xl transition-shadow"
+      >
+        <Link to={ linkItem }>
           <div>
-            <p>{ productName }</p>
-            <img src={ productImage } alt={ productName } />
-            <p>{ `R$ ${productPrice}` }</p>
-            { productShip === true
-              ? <p data-testid="free-shipping">Frete Gratis</p> : null}
+            <p className="font-medium text-sm my-3 truncate">{ productName }</p>
+            <img src={ productImage } alt={ productName } className="inline w-18" />
+            <p className="my-2">{ `R$ ${productPrice}` }</p>
+            {
+              productShip === true
+                ? (
+                  <p className="text-sm text-green-700 font-semibold">Frete Grátis</p>
+                )
+                : null
+            }
           </div>
         </Link>
         <button
           type="button"
-          data-testid="product-add-to-cart"
           onClick={ () => addCartFunc(obj) }
+          className="text-sm hover:font-medium"
         >
           Adicionar ao carrinho
         </button>
@@ -51,7 +58,6 @@ ProductCard.propTypes = {
   productName: PropTypes.string.isRequired,
   productImage: PropTypes.string.isRequired,
   productPrice: PropTypes.number.isRequired,
-  dataTestId: PropTypes.string.isRequired,
   productId: PropTypes.string.isRequired,
   addCartFunc: PropTypes.func.isRequired,
   productShip: PropTypes.bool.isRequired,

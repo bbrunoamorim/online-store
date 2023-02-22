@@ -6,23 +6,31 @@ export default class ProductsResult extends Component {
   render() {
     const { searchedProducts, startSearch, addCartFunc } = this.props;
     return (
-      <div className="products-result-container">
+      <div className="flex flex-wrap items-center justify-center">
         {
-          searchedProducts.length === 0 && startSearch ? (
-            <p>Nenhum produto foi encontrado</p>
-          ) : searchedProducts.map((product) => (
-            <ProductCard
-              key={ product.id }
-              availableQuantity={ product.available_quantity }
-              productName={ product.title }
-              productImage={ product.thumbnail }
-              productPrice={ product.price }
-              productId={ product.id }
-              dataTestId="product"
-              addCartFunc={ addCartFunc }
-              productShip={ product.shipping.free_shipping }
-            />
-          ))
+          searchedProducts.length === 0
+            && startSearch
+            ? (
+              <p
+                className="text-xl font-medium text-gray-700 mt-7"
+              >
+                Nenhum produto foi encontrado
+              </p>
+            )
+            : (
+              searchedProducts.map((product) => (
+                <ProductCard
+                  key={ product.id }
+                  availableQuantity={ product.available_quantity }
+                  productName={ product.title }
+                  productImage={ product.thumbnail }
+                  productPrice={ product.price }
+                  productId={ product.id }
+                  addCartFunc={ addCartFunc }
+                  productShip={ product.shipping.free_shipping }
+                />
+              ))
+            )
         }
       </div>
     );

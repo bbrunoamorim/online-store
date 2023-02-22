@@ -33,10 +33,8 @@ export default class Main extends Component {
       const { queryInput } = this.state;
       const data = await getProductsFromCategoryAndQuery('', queryInput);
       this.setState({ searchedProducts: data.results });
-      // console.log(data.results);
     } else {
       const data = await getProductsFromCategoryAndQuery(target.id);
-      // console.log(target.id);
       this.setState({ searchedProducts: data.results });
     }
   };
@@ -48,43 +46,53 @@ export default class Main extends Component {
   render() {
     const { categories, searchedProducts, queryInput, startSearch } = this.state;
     const { addCartFunc, cartQuantity } = this.props;
-    const hasItemOnList = searchedProducts.length > 0;
     return (
-      <>
+      <div className="bg-gray-100 min-h-screen">
         <Header
           handleChange={ this.handleChange }
           handleClick={ this.handleClick }
           queryInput={ queryInput }
           cartQuantity={ cartQuantity }
         />
-        <div className="initial-message-container">
-          { !hasItemOnList
-            && (
-              <p data-testid="home-initial-message">
-                Digite algum termo de pesquisa ou escolha uma categoria.
-              </p>
-            ) }
-        </div>
-        <div className="main-content">
-
-          <div className="categories-container">
-            { categories !== []
-              && categories.map((categoria) => (<input
-                data-testid="category"
-                value={ categoria.name }
-                type="button"
-                id={ categoria.id }
-                key={ categoria.id }
-                onClick={ this.handleClick }
-              />)) }
+        <section className="p-1">
+          <div className="group overflow-hidden float-left ml-5">
+            <button
+              type="button"
+              className="px-3 bg-blue-400 rounded-md hover:font-medium
+              hover:bg-blue-500 text-sm transition-colors duration-200"
+            >
+              Selecione a categoria
+              <img src="/images/caret-down.svg" alt="arrow-down" className="inline" />
+            </button>
+            {
+              categories !== []
+                ? (
+                  <div>
+                    {
+                      categories.map((categoria) => (
+                        <input
+                          value={ categoria.name }
+                          type="button"
+                          id={ categoria.id }
+                          key={ categoria.id }
+                          onClick={ this.handleClick }
+                          className="hidden group-hover:block cursor-pointer bg-blue-300
+                          w-full p-1 my-1 rounded-md hover:font-medium text-xs
+                          hover:bg-blue-400 transition-colors duration-200"
+                        />))
+                    }
+                  </div>
+                )
+                : null
+            }
           </div>
           <ProductsResult
             addCartFunc={ addCartFunc }
             startSearch={ startSearch }
             searchedProducts={ searchedProducts }
           />
-        </div>
-      </>
+        </section>
+      </div>
     );
   }
 }
