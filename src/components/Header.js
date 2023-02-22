@@ -1,45 +1,53 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import { AiOutlineSearch, AiOutlineShoppingCart } from 'react-icons/ai';
 
 export default class Header extends Component {
   render() {
     const { queryInput, handleClick, handleChange, cartQuantity } = this.props;
 
     return (
-      <header>
-        <div className="col-3">
-          <p>Store Logo</p>
+      <header
+        className="flex p-3 bg-gradient-to-br from-blue-600 via-blue-400
+        to-blue-300 items-center justify-around text-white font-medium mb-5"
+      >
+        <div>
+          <img src="/images/logo.png" alt="logo" className="w-10 ml-3" />
+          <p className="font-phudu mr-3">Online Store</p>
         </div>
-        <div className="col-6">
+        <div>
           <form>
             <label htmlFor="value">
               <input
                 id="value"
                 type="text"
                 name="queryInput"
-                data-testid="query-input"
                 value={ queryInput }
                 onChange={ handleChange }
+                placeholder="Digite um termo para pesquisa"
+                className="text-sm text-center p-1 rounded-lg shadow-md md:w-96"
               />
             </label>
             <button
               type="button"
-              data-testid="query-button"
               id="query-button"
               onClick={ handleClick }
             >
-              Pesquisar
+              <AiOutlineSearch className="inline ml-2 text-2xl" />
             </button>
           </form>
         </div>
-        <div className="col-3">
+        <div>
           <Link
             to="/cart"
-            data-testid="shopping-cart-button"
           >
-            Carrinho
-            <span data-testid="shopping-cart-size">{ cartQuantity }</span>
+            <AiOutlineShoppingCart className="inline text-3xl" />
+            <span
+              className="absolute top-4 right-5 text-sm"
+            >
+              { cartQuantity }
+            </span>
           </Link>
         </div>
       </header>
