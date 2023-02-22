@@ -9,8 +9,8 @@ export default class Header extends Component {
 
     return (
       <header
-        className="flex p-3 bg-gradient-to-br from-blue-600 via-blue-400
-        to-blue-300 items-center justify-around text-white font-medium mb-5"
+        className="flex p-3 bg-gradient-to-br from-blue-500 via-purple-500 to-pink-300
+        items-center justify-around text-white font-medium mb-2"
       >
         <div>
           <img src="/images/logo.png" alt="logo" className="w-10 ml-3" />

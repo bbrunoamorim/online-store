@@ -58,8 +58,9 @@ export default class Main extends Component {
           <div className="group overflow-hidden float-left ml-5">
             <button
               type="button"
-              className="px-3 bg-blue-400 rounded-md hover:font-medium
-              hover:bg-blue-500 text-sm transition-colors duration-200"
+              className="px-3 bg-gradient-to-br from-blue-500 via-purple-500 to-pink-300
+              rounded-md hover:font-medium hover:bg-blue-500 text-sm
+              transition-colors duration-200 text-white"
             >
               Selecione a categoria
               <img src="/images/caret-down.svg" alt="arrow-down" className="inline" />
@@ -76,9 +77,9 @@ export default class Main extends Component {
                           id={ categoria.id }
                           key={ categoria.id }
                           onClick={ this.handleClick }
-                          className="hidden group-hover:block cursor-pointer bg-blue-300
-                          w-full p-1 my-1 rounded-md hover:font-medium text-xs
-                          hover:bg-blue-400 transition-colors duration-200"
+                          className="hidden group-hover:block cursor-pointer bg-purple-400
+                          w-full p-1 my-1 rounded-md hover:font-medium text-xs text-white
+                          hover:bg-blue-300 transition-colors duration-200"
                         />))
                     }
                   </div>
