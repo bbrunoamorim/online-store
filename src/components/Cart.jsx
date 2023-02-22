@@ -36,7 +36,7 @@ export default class Cart extends Component {
             to="/"
             className="mb-5 bg-gradient-to-br from-blue-500 via-purple-500 to-pink-300 p-1
             rounded-md text-white font-medium hover:font-semibold hover:bg-blue-400
-            transition-colors duration-200 cursor-pointer w-1/4 text-center"
+            transition-colors duration-200 cursor-pointer w-1/4 text-center text-sm"
           >
             Voltar
           </Link>
@@ -45,7 +45,7 @@ export default class Cart extends Component {
             to="/checkout"
             className="mb-5 bg-gradient-to-br from-blue-500 via-purple-500 to-pink-300 p-1
             rounded-md text-white font-medium hover:font-semibold hover:bg-blue-400
-            transition-colors duration-200 cursor-pointer w-1/4 text-center"
+            transition-colors duration-200 cursor-pointer w-1/4 text-center text-sm"
           >
             Ir para o checkout
           </Link>
