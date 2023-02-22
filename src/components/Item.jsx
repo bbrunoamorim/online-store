@@ -30,7 +30,7 @@ export default class Item extends Component {
   }
 
   render() {
-    const { addCartFunc, cartQuantity } = this.props;
+    const { addCartFunc } = this.props;
     const { data, attributes } = this.state;
     const { title, price, thumbnail, id } = data;
     const { match: { params } } = this.props;
@@ -41,43 +41,61 @@ export default class Item extends Component {
       id,
     };
     return (
-      <>
-        <div className="cart-header">
+      <section
+        className="flex-col mx-auto mt-4 text-center px-2 py-5"
+      >
+        <div
+          className="mb-5 bg-gradient-to-br from-blue-500 via-purple-500 to-pink-300
+          p-1 rounded-md text-white font-medium
+          hover:font-semibold hover:bg-blue-400 transition-colors
+          duration-200 cursor-pointer w-2/3 mx-auto"
+        >
           <Link to="/">Voltar</Link>
         </div>
-        <div className="info-item-container">
-          <p data-testid="product-detail-name">{ title }</p>
-          <img data-testid="product-detail-image" src={ thumbnail } alt={ title } />
-          <p data-testid="product-detail-price">{ price }</p>
-          <ol>
-            { attributes.map((each) => (
-              <li key={ each.id }>{ `${each.name}: ${each.value_name}` }</li>
-            )) }
+        <div>
+          <p className="font-medium text-lg my-5">{ title }</p>
+          <img src={ thumbnail } alt={ title } className="inline w-32 h-32" />
+          <p className="font-medium my-3">{ `R$ ${price}` }</p>
+          <ol className="divide-y-2 w-2/3 mx-auto">
+            {
+              attributes.map((each) => (
+                <li
+                  key={ each.id }
+                  className="text-sm my-2"
+                >
+                  { `${each.name}: ${each.value_name}` }
+                </li>
+              ))
+            }
           </ol>
           <button
-            data-testid="product-detail-add-to-cart"
             onClick={ () => addCartFunc(obj) }
             type="button"
+            className="text-sm hover:font-medium my-4"
           >
             Adicionar ao Carrinho
           </button>
-          <Link
-            to="/cart"
-            data-testid="shopping-cart-button"
+          <div
+            className="mb-5 bg-gradient-to-br from-blue-500 via-purple-500 to-pink-300
+            p-1 rounded-md text-white font-medium
+            hover:font-semibold hover:bg-blue-400 transition-colors
+            duration-200 cursor-pointer w-2/3 mx-auto"
           >
-            Ver Carrinho
-            <span data-testid="shopping-cart-size">{ cartQuantity }</span>
-          </Link>
+            <Link
+              to="/cart"
+            >
+              Ver Carrinho
+            </Link>
+          </div>
         </div>
         <EvaluationForm productId={ params.id } />
-      </>
+      </section>
     );
   }
 }
 
 Item.propTypes = {
   addCartFunc: PropTypes.func.isRequired,
-  cartQuantity: PropTypes.number.isRequired,
   match: PropTypes.shape({
     params: PropTypes.shape({
       id: PropTypes.string,

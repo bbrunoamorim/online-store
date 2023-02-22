@@ -65,11 +65,11 @@ export default class EvaluationForm extends Component {
         <input
           key={ rating }
           type="radio"
-          data-testid={ `${rating}-rating` }
           name="rating"
           value={ rating }
           onChange={ this.handleChange }
           required
+          className="mx-1 accent-purple-600"
         />,
       );
     }
@@ -80,48 +80,60 @@ export default class EvaluationForm extends Component {
     const { email, text, evaluations, formValidation, submitted } = this.state;
 
     return (
-      <>
-        <form>
-          <h2>Avaliações</h2>
-          <input
-            type="email"
-            data-testid="product-detail-email"
-            name="email"
-            placeholder="Email"
-            value={ email }
-            onChange={ this.handleChange }
-            required
-          />
-          { this.createRadioInput() }
-          <textarea
-            data-testid="product-detail-evaluation"
-            name="text"
-            placeholder="Mensagem (opcional)"
-            value={ text }
-            onChange={ this.handleChange }
-          />
+      <div>
+        <form className="flex-col">
+          <h2 className="my-4 font-medium">Faça a sua avaliação sobre o produto</h2>
+          <fieldset>
+            <input
+              type="email"
+              name="email"
+              placeholder="Email"
+              value={ email }
+              onChange={ this.handleChange }
+              required
+              className="px-2 py-1 outline outline-2 outline-blue-500 rounded-md"
+            />
+          </fieldset>
+          <fieldset>
+            <input
+              name="text"
+              placeholder="Mensagem (opcional)"
+              value={ text }
+              onChange={ this.handleChange }
+              className="px-2 py-1 outline outline-2 outline-blue-500 rounded-md mt-2"
+            />
+          </fieldset>
+          <fieldset className="my-3">
+            { this.createRadioInput() }
+          </fieldset>
           <button
             type="button"
-            data-testid="submit-review-btn"
             onClick={ this.handleFormSubmit }
+            className="mb-5 bg-gradient-to-br from-blue-500 via-purple-500 to-pink-300
+            p-1 rounded-md text-white font-medium
+            hover:font-semibold hover:bg-blue-400 transition-colors
+            duration-200 cursor-pointer w-1/2 mx-auto"
           >
             Avaliar
           </button>
         </form>
         {
-          submitted && !formValidation && <p data-testid="error-msg">Campos inválidos</p>
+          submitted && !formValidation && <p>Campos inválidos</p>
         }
         {
-          evaluations.map((evaluation, index) => (
-            <EvaluationCard
-              key={ index }
-              email={ evaluation.email }
-              rating={ evaluation.rating }
-              text={ evaluation.text }
-            />
-          ))
+          evaluations !== []
+            ? (
+              evaluations.map((evaluation, index) => (
+                <EvaluationCard
+                  key={ index }
+                  email={ evaluation.email }
+                  rating={ evaluation.rating }
+                  text={ evaluation.text }
+                />
+              )))
+            : null
         }
-      </>
+      </div>
     );
   }
 }

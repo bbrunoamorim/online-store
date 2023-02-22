@@ -6,10 +6,13 @@ export default class EvaluationCard extends Component {
     const { email, text, rating } = this.props;
 
     return (
-      <section>
-        <p data-testid="review-card-email">{ email }</p>
-        <p data-testid="review-card-rating">{ rating }</p>
-        <p data-testid="review-card-evaluation">{ text }</p>
+      <section
+        className="mx-auto outline outline-1 rounded-md
+        p-1 w-1/2 mb-4 shadow-lg bg-gray-50"
+      >
+        <p className="text-sm">{ email }</p>
+        <p className="text-sm">{ rating }</p>
+        <p className="text-sm">{ text }</p>
       </section>
     );
   }
